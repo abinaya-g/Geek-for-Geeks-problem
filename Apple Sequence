@@ -1,0 +1,44 @@
+/*
+Apple Sequences
+
+There is a string of size n containing only 'A' and 'O'. 'A' stands for Apple, and 'O' stands for Orange. We have m number of spells, 
+each spell allows us to convert an orange into an apple.
+Find the longest sequence of apples you can make, given a string and the value of m.
+
+Example
+Input:
+N = 5
+M = 1
+arr[] = 'AAOAO'
+Output: 4 
+Explanation: Changing the orange at 3rd position into an apple gives us the maximum possible answer.
+*/
+
+// Program
+class Solution{   
+public:
+    int appleSequences(int n, int m, string arr){
+        int p = 0,q = 0, Actr = 0, Octr = 0, res =0;
+        while(q<n)
+        {
+            if(arr[q]=='A')
+                Actr++;
+            else
+            {
+                if(Octr<m)
+                    Octr++;
+                    else
+                    {
+                        while(p<q && arr[p]!='O')
+                        {
+                            p++;
+                            Actr--;
+                        }
+                        p++;
+                    }
+            }
+            res = max(res, Actr+Octr);
+            q++;
+        }
+        return res;
+    }
